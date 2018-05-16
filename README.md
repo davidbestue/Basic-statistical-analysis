@@ -1,6 +1,8 @@
 # Basic-statistical-analysis
 Statistical analysis in python
 
+(both the .py and the .ipynb for jupyter notebook)
+
 Script to run statistical analysis in python
 
 If you have data with a group structure this performs
