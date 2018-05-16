@@ -32,12 +32,25 @@ print '                           '
 
 
 #take off outliers per group
+def remove_outlier(df_in, col_name):
+    q1 = df_in[col_name].quantile(0.25)
+    q3 = df_in[col_name].quantile(0.75)
+    iqr = q3-q1 #Interquartile range
+    fence_low  = q1-1.5*iqr
+    fence_high = q3+1.5*iqr
+    df_out = df_in.loc[(df_in[col_name] > fence_low) & (df_in[col_name] < fence_high)]
+    return df_out
+
+
 from pandas import concat
 frames=[]
 for group_label in ['WT', 'HD', 'HD_T']:
     sub_group=Matrix.groupby('group').get_group(group_label)
-    interval = sub_group.quantile([0.05, 0.95]).unstack(level=1)
-    removed_out = sub_group.loc[(sub_group[column_names[column]]>interval[0]) & (sub_group[column_names[column]]<interval[1])] 
+    #CI
+    #interval = sub_group.quantile([0.05, 0.95]).unstack(level=1)
+    #removed_out = sub_group.loc[(sub_group[column_names[column]]>interval[0]) & (sub_group[column_names[column]]<interval[1])] 
+    #Quartiles
+    removed_out = remove_outlier(sub_group, column_names[column] )
     frames.append(  removed_out   )
     
     #Print the result
