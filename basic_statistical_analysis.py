@@ -18,6 +18,7 @@ from statsmodels.stats.multicomp import pairwise_tukeyhsd
 column = easygui.enterbox(msg='Enter the column to analyze', title='Column')
 column=int(column)
 
+
 df=read_excel('path/aaa.xlsx') #L data
 group=['WT', 'HD', 'HD_T']
 column_names=[ 'group', 'mit_axon', 'Relative_values', 'Am', 'Pm', 'Circ', 'AR', 'Am_Pm2',  'FF', 'FF_Relative_values', 'AR Relative_values', 'subj']
